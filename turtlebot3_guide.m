@@ -22,7 +22,7 @@ function varargout = turtlebot3_guide(varargin)
 
 % Edit the above text to modify the response to help turtlebot3_guide
 
-% Last Modified by GUIDE v2.5 05-Apr-2020 14:22:32
+% Last Modified by GUIDE v2.5 05-Apr-2020 14:39:35
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;

@@ -22,7 +22,7 @@ function varargout = turtlebot3_guide(varargin)
 
 % Edit the above text to modify the response to help turtlebot3_guide
 
-% Last Modified by GUIDE v2.5 05-Apr-2020 14:39:35
+% Last Modified by GUIDE v2.5 05-Apr-2020 17:19:07
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -54,6 +54,7 @@ function turtlebot3_guide_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for turtlebot3_guide
 handles.output = hObject;
+handles.log_level = "DEBUG";
 %axes1_CreateFcn(hObject,eventdata,handles);
 % Update handles structure
 guidata(hObject, handles);
@@ -78,20 +79,24 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-x = 1:0.01:10;
-y = tan(x);
-plot(x,y);
 
 
 
-% --- Executes on button press in pushbutton2.
-function pushbutton2_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton2 (see GCBO)
+% --- Executes on button press in pushbutton_log_level.
+function pushbutton_log_level_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton_log_level (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 x = 1:0.01:10;
 y = sin(x);
 plot(x,y);
+id = get(handles.listbox_log_level,'Value');
+item = get(handles.listbox_log_level, 'String');
+set_value = item(id);
+handles.log_level = set_value;
+handles.log_level
+log_manager(hObject, eventdata, handles, "INFO", strcat("The log level is setted: ", set_value ));
+guidata(hObject, handles);
 
 
 % --- Executes on button press in pushbutton3.
@@ -99,10 +104,6 @@ function pushbutton3_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-x = 1:0.01:10;
-y = cos(x);
-plot(x,y);
-handles.listbox1
 
 
 % --- Executes during object creation, after setting all properties.
@@ -166,7 +167,7 @@ function StartButton_Callback(hObject, eventdata, handles)
 % hObject    handle to StartButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+log_manager(hObject, eventdata, handles, "DEBUG", "start button");
 
 % --- Executes on button press in checkbox_experiment.
 function checkbox_experiment_Callback(hObject, eventdata, handles)
@@ -209,19 +210,19 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on selection change in listbox2.
-function listbox2_Callback(hObject, eventdata, handles)
-% hObject    handle to listbox2 (see GCBO)
+% --- Executes on selection change in listbox_log.
+function listbox_log_Callback(hObject, eventdata, handles)
+% hObject    handle to listbox_log (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns listbox2 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from listbox2
+% Hints: contents = cellstr(get(hObject,'String')) returns listbox_log contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from listbox_log
 
 
 % --- Executes during object creation, after setting all properties.
-function listbox2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to listbox2 (see GCBO)
+function listbox_log_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to listbox_log (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -255,19 +256,19 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on selection change in listbox5.
-function listbox5_Callback(hObject, eventdata, handles)
-% hObject    handle to listbox5 (see GCBO)
+% --- Executes on selection change in listbox_log_level.
+function listbox_log_level_Callback(hObject, eventdata, handles)
+% hObject    handle to listbox_log_level (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns listbox5 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from listbox5
+% Hints: contents = cellstr(get(hObject,'String')) returns listbox_log_level contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from listbox_log_level
 
 
 % --- Executes during object creation, after setting all properties.
-function listbox5_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to listbox5 (see GCBO)
+function listbox_log_level_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to listbox_log_level (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -279,15 +280,15 @@ end
 
 
 % --------------------------------------------------------------------
-function robots_Callback(hObject, eventdata, handles)
-% hObject    handle to robots (see GCBO)
+function menu_setup_Callback(hObject, eventdata, handles)
+% hObject    handle to menu_setup (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
 
 % --------------------------------------------------------------------
-function Untitled_2_Callback(hObject, eventdata, handles)
-% hObject    handle to Untitled_2 (see GCBO)
+function robots2_Callback(hObject, eventdata, handles)
+% hObject    handle to robots2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
@@ -297,3 +298,27 @@ function Untitled_3_Callback(hObject, eventdata, handles)
 % hObject    handle to Untitled_3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function setup_basic_Callback(hObject, eventdata, handles)
+% hObject    handle to setup_basic (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- If Enable == 'on', executes on mouse press in 5 pixel border.
+% --- Otherwise, executes on mouse press in 5 pixel border or over pushbutton_log_level.
+function pushbutton_log_level_ButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to pushbutton_log_level (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+% handles.debug_level = 
+
+
+% --- Executes on button press in pushbutton_log_box_clear.
+function pushbutton_log_box_clear_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton_log_box_clear (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+set(handles.listbox_log, 'String', []);

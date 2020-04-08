@@ -58,13 +58,11 @@ function turtlebot3_guide_OpeningFcn(hObject, eventdata, handles, varargin)
 axes(handles.axes2);
 imshow('img/turtlebot3_with_logo.png');
 
-% addpath("utils/");
-% addpath("img/");
-% addpath("linker/");
-addpath(genpath(""));
+addpath("utils/");
+addpath("img/");
+addpath("linker/");
 handles.output = hObject;
 handles.log_level = "DEBUG";
-handles.robot_position = [];
 % handles.app.robot_num = 1;
 % handles.app.robot_position = [];
 % handles.app.task_type = [];
@@ -260,7 +258,7 @@ log_manager(hObject, eventdata, handles, "DEBUG", "edit_select_robot_num");
 string = get(handles.edit_select_robot_num, 'String');
 handles.app.robot_num = str2double(string);
 
-handles.app.robot_position = zeros(2,handles.app.robot_num);
+
 
 guidata(hObject, handles);
 
@@ -278,7 +276,6 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 string = get(hObject, 'String');
 handles.app.robot_num = str2double(string);
-handles.app.robot_position = zeros(2,handles.app.robot_num);
 guidata(hObject, handles);
 
 
@@ -698,7 +695,8 @@ function pushbutton_namespace_update_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% disp(handles.app)
+disp(handles.app)
+
 data = get(handles.uitable_init_position, 'Data');
 handles.app.robot_namespace = cell(handles.app.robot_num, 1);
 for i = 1 : handles.app.robot_num
@@ -708,7 +706,8 @@ for i = 1 : handles.app.robot_num
         handles.app.robot_namespace{i} = (strcat(handles.app.robot_namespace_prefix, (char(97-1+i))));
     end
 %     data{i,4} = handles.app.robot_namespace{i};
-    log_manager(hObject, eventdata, handles, "INFO", handles.app.robot_namespace{i});
-    
 end
+% set(handles.uitable_init_position, 'Data', data);
+% disp(handles.app.robot_namespace);
+%uitable_init_position
 guidata(hObject, handles);

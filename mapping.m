@@ -14,7 +14,11 @@ handles = guidata(hfigure);
 
 
 % 
+for i = 1:handles.app.robot_num
+   handles.app.robot_position(:,1) = [1 2]; 
+   handles.app.robot_position(:,3) = [3 2];
+end
 
-
+handles.app.robot_position
 guidata(hfigure, handles);
 end

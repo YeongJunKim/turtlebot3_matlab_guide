@@ -1,5 +1,6 @@
-
-addpath("utils/");
+clear all
+addpath("./../matlab_utils");
+addpath("./utils");
 addpath("img/");
 addpath("linker/");
 
